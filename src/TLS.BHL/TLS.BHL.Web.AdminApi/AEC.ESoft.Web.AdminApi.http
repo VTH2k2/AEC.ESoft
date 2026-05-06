@@ -1,0 +1,6 @@
+@AEC.ESoft.Web.AdminApi_HostAddress = http://localhost:5097
+
+GET {{AEC.ESoft.Web.AdminApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

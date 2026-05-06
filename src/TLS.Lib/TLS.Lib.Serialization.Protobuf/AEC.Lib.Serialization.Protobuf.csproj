@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+	<Version>1.0.0</Version>
+	<AssemblyVersion>1.0.0.0</AssemblyVersion>
+	<FileVersion>1.0.0.0</FileVersion>
+	<Authors>aec@gmail.com</Authors>
+	<Company>AEC</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="protobuf-net" Version="3.2.56" />
+    <PackageReference Include="protobuf-net.Core" Version="3.2.56" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<ProjectReference Include="..\TLS.Core\AEC.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Core.Web\AEC.Core.Web.csproj" />
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Core\AEC.Core.csproj" />
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Lib.Caching.RedisCache\AEC.Lib.Caching.RedisCache.csproj" />
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Lib.Data.Sql\AEC.Lib.Data.Sql.csproj" />
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Lib.DataProtection.Redis\AEC.Lib.DataProtection.Redis.csproj" />
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Lib.Exceptional\AEC.Lib.Exceptional.csproj" />
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Lib.Logging.Elastic\AEC.Lib.Logging.Elastic.csproj" />
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Lib.Messaging.RabbitMQ\AEC.Lib.Messaging.RabbitMQ.csproj" />
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Lib.Serialization.Jil\AEC.Lib.Serialization.Jil.csproj" />
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Lib.Serialization.Protobuf\AEC.Lib.Serialization.Protobuf.csproj" />
+    <ProjectReference Include="..\TLS.BHL.Infra.App\AEC.ESoft.Infra.App.csproj" />
+    <ProjectReference Include="..\TLS.BHL.Infra.Business\AEC.ESoft.Infra.Business.csproj" />
+    <ProjectReference Include="..\TLS.BHL.Infra.Cache\AEC.ESoft.Infra.Cache.csproj" />
+    <ProjectReference Include="..\TLS.BHL.Infra.Data\AEC.ESoft.Infra.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="RequestHandlers\Category\Commands\" />
+    <Folder Include="RequestHandlers\Category\Validators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EasyNetQ" Version="7.8.0" />
+    <PackageReference Include="EasyNetQ.DI.Microsoft" Version="7.8.0" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.3.1" />
+  </ItemGroup>
+
+</Project>

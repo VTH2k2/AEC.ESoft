@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Lib.Data.Sql\AEC.Lib.Data.Sql.csproj" />
+    <ProjectReference Include="..\TLS.BHL.Infra.App\AEC.ESoft.Infra.App.csproj" />
+  </ItemGroup>
+
+</Project>

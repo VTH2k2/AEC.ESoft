@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>0377fedf-d610-4cfa-aeed-187d3c473ee7</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EasyNetQ" Version="7.8.0" />
+    <PackageReference Include="EasyNetQ.DI.Microsoft" Version="7.8.0" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.12" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Core.Web\AEC.Core.Web.csproj" />
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Core\AEC.Core.csproj" />
+    <ProjectReference Include="..\..\TLS.Lib\TLS.Lib.Exceptional\AEC.Lib.Exceptional.csproj" />
+    <ProjectReference Include="..\TLS.BHL.Infra.App\AEC.ESoft.Infra.App.csproj" />
+    <ProjectReference Include="..\TLS.BHL.Infra.Business\AEC.ESoft.Infra.Business.csproj" />
+    <ProjectReference Include="..\TLS.BHL.Infra.Data\AEC.ESoft.Infra.Data.csproj" />
+    <ProjectReference Include="..\TLS.BHL.Web.AdminHandlers\AEC.ESoft.Web.AdminHandlers.csproj" />
+  </ItemGroup>
+
+</Project>

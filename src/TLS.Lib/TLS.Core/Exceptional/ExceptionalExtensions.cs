@@ -1,12 +1,15 @@
 ﻿
+using AEC.Core;
+using AEC.Core.Exceptional;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AEC.Core.Exceptional
+namespace TLS.Core.Exceptional
 {
     public static class ExceptionalExtensions
     {
@@ -40,10 +43,6 @@ namespace AEC.Core.Exceptional
         {
             ex.Data[ExceptionalConstants.CustomDataKeyPrefix + key] = value ?? string.Empty;
             return ex;
-        }
-        public static void LogNoContext(this Exception ex, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null, string applicationName = null)
-        {
-            ExceptionalService.LogNoContext(ex, category, rollupPerServer, customData, applicationName);
         }
     }
 }

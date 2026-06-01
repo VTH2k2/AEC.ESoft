@@ -24,7 +24,7 @@ namespace AEC.ESoft.Infra.Data
             services.AddLibDataSQL();
             services.AddDbContext<ESoftSqlDbContext>(options =>
             {
-                options.UseSqlServer(services.GetConfiguration().GetConnectionString("ESoft"), m => { 
+                options.UseSqlServer(services.GetConfiguration().GetConnectionString("ESoftSale"), m => { 
                 });
             });
             services.AddScoped<IESoftDbContext>(provider => provider.GetRequiredService<ESoftSqlDbContext>());

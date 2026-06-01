@@ -1,24 +1,192 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AEC.Core.Exceptional;
+using AEC.Core.Service;
+using AEC.Lib.Exceptional;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using StackExchange.Exceptional;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AEC.Core.Exceptional;
-using StackExchange.Exceptional;
+using AEC.Core.Service;
+using static Dapper.SqlMapper;
 
 namespace AEC.Lib.Exceptional
 {
-    public class StackExchangeHttpExceptional : StackExchangeExceptional, IHttpExceptional
+    public class StackExchangeHttpExceptional : ServiceBase<StackExchangeExceptional>, IExceptional
     {
-        public void Log(Exception ex, HttpContext context, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null, string applicationName = null)
+        private IHttpContextAccessor HttpContextAccessor { get; set; }
+        private const string DebugPrefix = "";
+        private const string DebugSurfix = "-Debug";
+        private string DebugApplicationName { get; set; }
+        protected HttpContext HttpContext
         {
-            AspNetCoreExtensions.Log(ex, context, category, rollupPerServer, customData, applicationName);
+            get
+            {
+                return HttpContextAccessor.HttpContext;
+            }
+        }
+        public StackExchangeHttpExceptional(IServiceProvider serviceProvider, IHttpContextAccessor httpContextAccessor) : base(serviceProvider)
+        {
+            HttpContextAccessor = httpContextAccessor;
+            DebugApplicationName = string.Format("{0}{1}{2}", DebugPrefix, StackExchange.Exceptional.Exceptional.Settings.Store.ApplicationName, DebugSurfix);
         }
 
-        public async Task LogAsync(Exception ex, HttpContext context, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null, string applicationName = null)
+        public new TException LogError<TException>(TException ex, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+            where TException : Exception
         {
-            await AspNetCoreExtensions.LogAsync(ex, context, category, rollupPerServer, customData, applicationName);
+            AspNetCoreExtensions.Log(ex, HttpContext, category, rollupPerServer, customData);
+            return ex;
+        }
+
+        public new Exception LogError(string errorMessage, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            var ex = new Exception(errorMessage);
+            AspNetCoreExtensions.Log(ex, HttpContext, category, rollupPerServer, customData);
+            return ex;
+        }
+
+        public new Exception LogError(string errorMessage, Exception innerException, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            var ex = new Exception(errorMessage, innerException);
+            AspNetCoreExtensions.Log(ex, HttpContext, category, rollupPerServer, customData);
+            return ex;
+        }
+
+        public new Exception LogError(object inputError, Exception innerException, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            var errorMessage = $"Exception {innerException.Message} with input {JsonConvert.SerializeObject(inputError)}";
+            return LogError(errorMessage, innerException, category, rollupPerServer, customData);
+        }
+
+        public new async Task<TException> LogErrorAsync<TException>(TException ex, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+            where TException : Exception
+        {
+            await AspNetCoreExtensions.LogAsync(ex, HttpContext, category, rollupPerServer, customData);
+            return ex;
+        }
+
+        public new async Task<Exception> LogErrorAsync(string errorMessage, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            var ex = new Exception(errorMessage);
+            await AspNetCoreExtensions.LogAsync(ex, HttpContext, category, rollupPerServer, customData);
+            return ex;
+        }
+
+        public new async Task<Exception> LogErrorAsync(string errorMessage, Exception innerException, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            var ex = new Exception(errorMessage, innerException);
+            await AspNetCoreExtensions.LogAsync(ex, HttpContext, category, rollupPerServer, customData);
+            return ex;
+        }
+
+        public new async Task<Exception> LogErrorAsync(object inputError, Exception innerException, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            var errorMessage = $"Exception {innerException.Message} with input {JsonConvert.SerializeObject(inputError)}";
+            return await LogErrorAsync(errorMessage, innerException, category, rollupPerServer, customData);
+        }
+
+        private Error LogDebugInternal(Exception ex, HttpContext context, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            try
+            {
+                var isAppendFullStackTraces = StackExchange.Exceptional.Exceptional.Settings.AppendFullStackTraces;
+                if (isAppendFullStackTraces)
+                {
+                    StackExchange.Exceptional.Exceptional.Settings.AppendFullStackTraces = false;
+                }
+                var err = AspNetCoreExtensions.Log(ex, HttpContext, category, rollupPerServer, customData, DebugApplicationName);
+                if (isAppendFullStackTraces)
+                {
+                    StackExchange.Exceptional.Exceptional.Settings.AppendFullStackTraces = true;
+                }
+                return err;
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, "LogDebugInternal fail");
+                return null;
+            }
+        }
+
+        private async Task<Error> LogDebugInternalAsync(Exception ex, HttpContext context, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            try
+            {
+                var isAppendFullStackTraces = StackExchange.Exceptional.Exceptional.Settings.AppendFullStackTraces;
+                if (isAppendFullStackTraces)
+                {
+                    StackExchange.Exceptional.Exceptional.Settings.AppendFullStackTraces = false;
+                }
+                var err = await AspNetCoreExtensions.LogAsync(ex, HttpContext, category, rollupPerServer, customData, DebugApplicationName);
+                if (isAppendFullStackTraces)
+                {
+                    StackExchange.Exceptional.Exceptional.Settings.AppendFullStackTraces = true;
+                }
+                return err;
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, "LogDebugInternalAsync fail");
+                return null;
+            }
+        }
+
+        public new TException LogDebug<TException>(TException ex, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+            where TException : Exception
+        {
+            LogDebugInternal(ex, HttpContext, category, rollupPerServer, customData);
+            return ex;
+        }
+
+        public new Exception LogDebug(string message, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            var ex = new Exception(message);
+            LogDebugInternal(ex, HttpContext, category, rollupPerServer, customData);
+            return ex;
+        }
+
+        public new Exception LogDebug(string message, Exception innerException, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            var ex = new Exception(message, innerException);
+            LogDebugInternal(ex, HttpContext, category, rollupPerServer, customData);
+            return ex;
+        }
+
+        public new Exception LogDebug(object inputObject, Exception innerException, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            var errorMessage = $"Exception {innerException.Message} with input {JsonConvert.SerializeObject(inputObject)}";
+            return LogDebug(errorMessage, innerException, category, rollupPerServer, customData);
+        }
+
+        public new async Task<TException> LogDebugAsync<TException>(TException ex, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+            where TException : Exception
+        {
+            await LogDebugInternalAsync(ex, HttpContext, category, rollupPerServer, customData);
+            return ex;
+        }
+
+        public new async Task<Exception> LogDebugAsync(string errorMessage, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            var ex = new Exception(errorMessage);
+            await LogDebugInternalAsync(ex, HttpContext, category, rollupPerServer, customData);
+            return ex;
+        }
+
+        public new async Task<Exception> LogDebugAsync(string errorMessage, Exception innerException, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            var ex = new Exception(errorMessage, innerException);
+            await LogDebugInternalAsync(ex, HttpContext, category, rollupPerServer, customData);
+            return ex;
+        }
+
+        public new async Task<Exception> LogDebugAsync(object inputError, Exception innerException, string category = null, bool rollupPerServer = false, Dictionary<string, string> customData = null)
+        {
+            var errorMessage = $"Exception {innerException.Message} with input {JsonConvert.SerializeObject(inputError)}";
+            return await LogDebugAsync(errorMessage, innerException, category, rollupPerServer, customData);
         }
     }
 }

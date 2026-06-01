@@ -59,9 +59,8 @@ namespace AEC.ESoft.Infra.Data.SQL.Contexts
 
             builder.Entity<CategoryEntity>(entity =>
             {
-                entity.Property(x => x.Id).UseIdentityColumn(1, 1);
-                entity.Property(x => x.Name).IsUnicode().HasMaxLength(50);
-                entity.Property(x => x.Description);
+                entity.ToTable("Category");
+                entity.Property(x => x.Id);
             });
         }
     }

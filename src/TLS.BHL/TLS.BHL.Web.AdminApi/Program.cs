@@ -62,14 +62,31 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddExceptionHandler<WebAdminExceptionsHandler>();
-builder.Services.AddLibExceptional();
+builder.Services.AddLibExceptional<StackExchangeHttpExceptional>();
 //builder.Services.AddLibRedisCache(true);
 builder.Services.AddInfraRepositories();
 builder.Services.AddInfraServices();
 builder.Services.AddWebAdminHandlers();
 
 var app = builder.Build();
-app.UseExceptionHandler(o => { });
+app.UseExceptionHandler(exceptionHandlerApp =>
+{
+    exceptionHandlerApp.Run(async context =>
+    {
+        context.Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
+        context.Response.ContentType = "application/json";
+        
+        var exceptionHandlerPathFeature = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>();
+        var exception = exceptionHandlerPathFeature?.Error;
+        
+        await context.Response.WriteAsJsonAsync(new Microsoft.AspNetCore.Mvc.ProblemDetails
+        {
+            Status = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError,
+            Title = "An error occurred while processing your request.",
+            Detail = exception?.Message
+        });
+    });
+});
 
 // If development mode
 if (app.Environment.IsDevelopment())

@@ -34,7 +34,7 @@
                                 Width="100"/>
 
                     <DataGridTextColumn Header="Name"
-                                Binding="{Binding Name}"
+                                Binding="{Binding CategoryName}"
                                 Width="*"/>
                 </DataGrid.Columns>
 

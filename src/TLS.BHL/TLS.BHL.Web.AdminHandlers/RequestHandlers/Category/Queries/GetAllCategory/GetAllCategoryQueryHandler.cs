@@ -20,8 +20,15 @@ namespace AEC.ESoft.Web.AdminHandlers.RequestHandlers.Category.Queries.GetAllCat
 
         public async Task<ApiResponse<List<CategoryDTO>>> Handle(GetAllCategoryQuery request, CancellationToken cancellationToken)
         {
-            var result = await _categoryService.GetAllCategory();
-            return ApiResponse.CreateSuccess(Mapper.Map<List<CategoryDTO>>(result)); 
+            try
+            {
+                var result = await _categoryService.GetAllCategory();
+                return ApiResponse.CreateSuccess(Mapper.Map<List<CategoryDTO>>(result));
+            } catch(Exception ex)
+            {
+                LogError(ex);
+                return ApiResponse.CreateError<List<CategoryDTO>>(null, "Lỗi hệ thống, vui lòng thử lại sau.");
+            }
         }
     }
 }

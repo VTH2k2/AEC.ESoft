@@ -21,6 +21,11 @@ namespace AEC.ESoft.Infra.Data.SQL.Repositories
 
         public async Task<List<CategoryEntity>> GetAllCategory()
         {
+            Console.WriteLine(_context.Database.GetDbConnection().ConnectionString);
+            Console.WriteLine(_context.Database.GetDbConnection().Database);
+            Console.WriteLine("DATABASE = " + _context.Database.GetDbConnection().Database);
+
+            Console.WriteLine("CONNECTION = " + _context.Database.GetDbConnection().ConnectionString);
             return await _context.Categories.ToListAsync();
         }
 

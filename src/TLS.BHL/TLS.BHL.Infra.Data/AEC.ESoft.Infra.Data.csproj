@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.5.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\TLS.Lib\TLS.Lib.Data.Sql\AEC.Lib.Data.Sql.csproj" />
     <ProjectReference Include="..\TLS.BHL.Infra.App\AEC.ESoft.Infra.App.csproj" />
   </ItemGroup>

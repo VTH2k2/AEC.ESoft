@@ -22,6 +22,12 @@ namespace AEC.ESoft.Infra.Business
 
             #region BusinessServices
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductDefintionsService, ProductDefintionsService>();
+            services.AddScoped<ISalesInvoiceService, SalesInvoiceService>();
+            services.AddScoped<ISalesInvoiceItemService, SalesInvoiceItemService>();
+            services.AddScoped<IProductStockService, ProductStockService>();
+
+
             // Other here
             #endregion
         }

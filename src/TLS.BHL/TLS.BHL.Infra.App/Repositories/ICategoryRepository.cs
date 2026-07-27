@@ -9,8 +9,10 @@ using AEC.Core.Data;
 namespace AEC.ESoft.Infra.App.Repositories
 {
     public interface ICategoryRepository : IRepository
+        // interface = 1 cái rằng buộc 
     {
         public Task<List<CategoryEntity>> GetAllCategory();
+        // 
         public Task<CategoryEntity> GetCategoryById(int id);
     }
 }

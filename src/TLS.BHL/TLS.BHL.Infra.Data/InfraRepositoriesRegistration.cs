@@ -31,7 +31,18 @@ namespace AEC.ESoft.Infra.Data
 
             #region repositories
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductDefintionsRepository, ProductDefintionsRepository>();
+
+            services.AddScoped<ISalesInvoiceRepository, SalesInvoiceRepository>();
+
+            services.AddScoped<ISalesInvoiceItemRepository, SalesInvoiceItemRepository>();
+
+            services.AddScoped<IProductStockRepository, ProductStockRepository>();
             #endregion
+
+
+
+
         }
     }
 }

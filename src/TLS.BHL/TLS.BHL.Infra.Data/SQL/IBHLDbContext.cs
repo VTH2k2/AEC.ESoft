@@ -12,5 +12,12 @@ namespace AEC.ESoft.Infra.Data.SQL
     public interface IESoftDbContext : IDbContext
     {
         DbSet<CategoryEntity> Categories { get; }
+        DbSet<ProductDefinitionsEntity> ProductDefinitions { get; }
+
+        DbSet<SalesInvoiceEntity> SalesInvoices { get; }
+
+        DbSet<SalesInvoiceItemsEntity> SalesInvoiceItems { get; }
+
+        DbSet<ProductStockEntity> ProductStocks { get; }
     }
 }

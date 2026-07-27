@@ -26,7 +26,9 @@ namespace AEC.ESoft.Infra.Data.SQL.Repositories
             Console.WriteLine("DATABASE = " + _context.Database.GetDbConnection().Database);
 
             Console.WriteLine("CONNECTION = " + _context.Database.GetDbConnection().ConnectionString);
+            // xử lý từng bước 1 
             return await _context.Categories.ToListAsync();
+            // return SELECT * FROM Categories
         }
 
         public async Task<CategoryEntity> GetCategoryById(int id)

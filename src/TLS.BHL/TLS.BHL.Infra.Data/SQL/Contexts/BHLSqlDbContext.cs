@@ -20,6 +20,14 @@ namespace AEC.ESoft.Infra.Data.SQL.Contexts
 
 
         public DbSet<CategoryEntity>Categories { get; set; }
+        public DbSet<ProductDefinitionsEntity> ProductDefinitions { get; set; }
+
+        public DbSet<SalesInvoiceEntity> SalesInvoices { get; set; }
+
+        public DbSet<SalesInvoiceItemsEntity> SalesInvoiceItems { get; set; }
+
+        public DbSet<ProductStockEntity> ProductStocks { get; set; }
+
 
         public int SaveChanges()
         {
@@ -62,6 +70,15 @@ namespace AEC.ESoft.Infra.Data.SQL.Contexts
                 entity.ToTable("Category");
                 entity.Property(x => x.Id);
             });
+
+            builder.Entity<ProductDefinitionsEntity>(entity =>
+            {
+                entity.ToTable("ProductDefinitions");
+                entity.Property(x => x.Id);
+            });
+
+
+
         }
     }
 }

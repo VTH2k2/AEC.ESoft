@@ -10,25 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UI.ViewModels;
 
-namespace UI
+namespace UI.Components.Staff
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for HeaderComponent.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class HeaderComponent : UserControl
     {
-        public MainWindow()
+        public HeaderComponent()
         {
             InitializeComponent();
-            //DataContext = new CategoryViewModel();
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

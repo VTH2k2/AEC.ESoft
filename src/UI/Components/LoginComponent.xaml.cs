@@ -10,25 +10,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UI.ViewModels;
+using UI.Views;
 
-namespace UI
+namespace UI.Components
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LoginComponent.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LoginComponent : UserControl
     {
-        public MainWindow()
+        public LoginComponent()
         {
             InitializeComponent();
-            //DataContext = new CategoryViewModel();
         }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private void HandleLoginClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            var staffView = new StaffView();
+
+            Window.GetWindow(this).Content = staffView;
         }
     }
 }

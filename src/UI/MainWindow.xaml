@@ -4,18 +4,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:UI.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel Margin="10">
+        Title="MainWindow" 
+        WindowState="Maximized"
+        WindowStyle="None"
+        ResizeMode="NoResize">
+    <DockPanel>
+        <!-- Header với button tắt ở bên phải -->
+        <Border DockPanel.Dock="Top"
+                Background="White"
+                BorderBrush="#E5E5E5"
+                BorderThickness="0,0,0,1"
+                Height="50">
+            <Grid Margin="20,0">
+                <StackPanel HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <Button x:Name="CloseButton"
+                            Click="CloseButton_Click"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            ToolTip="Tắt chương trình">
+                        <materialDesign:PackIcon Kind="Power"
+                                                  Width="24"
+                                                  Height="24"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
 
-        <!-- Button load -->
-        <Button Content="Load Data"
-                Command="{Binding LoadCommand}"
-                Width="120"
-                Margin="0,0,0,10"/>
-
-        <!-- Gắn component -->
-        <views:CategoryTable/>
-
-    </StackPanel>
+        <!-- Content -->
+        <StackPanel Margin="0">
+            <!-- Gắn component -->
+            <views:LoginView Height="900"/>
+        </StackPanel>
+    </DockPanel>
 </Window>

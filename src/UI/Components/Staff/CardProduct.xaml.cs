@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UI.Views
+namespace UI.Components.Staff
 {
     /// <summary>
-    /// Interaction logic for CategoryTable.xaml
+    /// Interaction logic for CardProduct.xaml
     /// </summary>
-    public partial class CategoryTable : UserControl
+    public partial class CardProduct : UserControl
     {
-        public CategoryTable()
+        public CardProduct()
         {
             InitializeComponent();
-        }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

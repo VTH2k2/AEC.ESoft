@@ -18,22 +18,43 @@ namespace AEC.ESoft.Infra.Data.SQL.Repositories
         {
             _context = context;
         }
+        // Thêm danh mục mới
+        public async Task<CategoryEntity> AddCategoryAsync(CategoryEntity category, CancellationToken cancellationToken)
+        {
+            _context.Categories.AddAsync(category);
+            await _context.SaveChangesAsync(cancellationToken);
+            return category;
+        }
+
+        public async Task<bool> DeleteCategory(int id, CancellationToken cancellationToken)
+        {
+            var category = _context.Categories.FirstOrDefault(x => x.Id == id);
+            if (category == null) return false;
+            else
+            {
+                _context.Categories.Remove(category);
+                await _context.SaveChangesAsync(cancellationToken);
+                return true;
+            }
+        }
 
         public async Task<List<CategoryEntity>> GetAllCategory()
         {
-            Console.WriteLine(_context.Database.GetDbConnection().ConnectionString);
-            Console.WriteLine(_context.Database.GetDbConnection().Database);
-            Console.WriteLine("DATABASE = " + _context.Database.GetDbConnection().Database);
-
-            Console.WriteLine("CONNECTION = " + _context.Database.GetDbConnection().ConnectionString);
-            // xử lý từng bước 1 
             return await _context.Categories.ToListAsync();
-            // return SELECT * FROM Categories
         }
 
         public async Task<CategoryEntity> GetCategoryById(int id)
         {
             return await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<CategoryEntity> UpdateCategoryAsync(CategoryEntity category, CancellationToken cancellationToken)
+        {
+            var existingCategory = await _context.Categories.FirstOrDefaultAsync(x => x.Id == category.Id);
+            if (existingCategory == null) return null;
+            _context.Entry(existingCategory).CurrentValues.SetValues(category);
+            await _context.SaveChangesAsync(cancellationToken);
+            return existingCategory;
         }
     }
 }

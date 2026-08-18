@@ -18,6 +18,16 @@ namespace AEC.ESoft.Infra.Business.Services
             _categoryRepository = categoryRepository;
         }
 
+        public async Task<CategoryEntity> AddCategoryAsync(CategoryEntity category, CancellationToken cancellationToken)
+        {
+            return await _categoryRepository.AddCategoryAsync(category, cancellationToken);
+        }
+
+        public async Task<bool> DeleteCategory(int id, CancellationToken cancellationToken)
+        {
+            return await _categoryRepository.DeleteCategory(id, cancellationToken);
+        }
+
         public async Task<List<CategoryEntity>> GetAllCategory()
         {
             return await _categoryRepository.GetAllCategory();
@@ -26,6 +36,11 @@ namespace AEC.ESoft.Infra.Business.Services
         public async Task<CategoryEntity> GetCategoryById(int id)
         {
             return await _categoryRepository.GetCategoryById(id);
+        }
+
+        public async Task<CategoryEntity> UpdateCategoryAsync(CategoryEntity category, CancellationToken cancellationToken)
+        {
+            return await _categoryRepository.UpdateCategoryAsync(category, cancellationToken);
         }
     }
 }

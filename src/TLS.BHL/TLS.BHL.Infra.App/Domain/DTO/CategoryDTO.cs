@@ -12,4 +12,13 @@ namespace AEC.ESoft.Infra.App.Domain.DTO
         public string? Name { get; set; }
         //public string? Description { get; set; }
     }
+    public class CreateCategoryInput
+    {
+        public string? Name { get; set; }
+    }
+    public class UpdateCategoryInput 
+    {
+        public int? Id { get; set; }
+        public string? Name { get; set; }
+    }
 }

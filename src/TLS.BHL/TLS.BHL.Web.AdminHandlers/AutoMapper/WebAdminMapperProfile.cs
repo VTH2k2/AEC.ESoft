@@ -15,6 +15,8 @@ namespace AEC.ESoft.Web.AdminHandlers.AutoMapper
         public WebAdminMapperProfile()
         {
             CreateMap<CategoryEntity, CategoryDTO>();
+            CreateMap<CreateCategoryInput, CategoryEntity>();
+            CreateMap<UpdateCategoryInput, CategoryEntity>();
             CreateMap<ProductDefinitionsEntity, ProductDefinitionsDTO>();
         }
     }

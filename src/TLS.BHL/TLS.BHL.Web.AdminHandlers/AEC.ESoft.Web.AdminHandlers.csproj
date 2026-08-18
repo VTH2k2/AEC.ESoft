@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="RequestHandlers\Category\Commands\" />
     <Folder Include="RequestHandlers\Category\Validators\" />
     <Folder Include="RequestHandlers\ProductDefintions\Commands\" />
     <Folder Include="RequestHandlers\ProductDefintions\Validators\" />

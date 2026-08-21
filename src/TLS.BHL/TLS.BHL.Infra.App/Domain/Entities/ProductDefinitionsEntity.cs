@@ -11,11 +11,11 @@ namespace AEC.ESoft.Infra.App.Domain.Entities
     public class ProductDefinitionsEntity
     {
         public int Id { get; set; }
-        public int CategoryId { get; set; }
-        public string Sku { get; set; }
-        public string ProductName { get; set; }
-        public string Unit { get; set; }
-        public bool HasDocument { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public int? CategoryId { get; set; }
+        public string? Sku { get; set; }
+        public string? ProductName { get; set; }
+        public string? Unit { get; set; }
+        public bool? HasDocument { get; set; }
+        public DateTime? CreatedAt { get; set; }
     }
 }

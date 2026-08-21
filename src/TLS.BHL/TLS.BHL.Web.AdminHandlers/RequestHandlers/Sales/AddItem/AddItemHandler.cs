@@ -35,7 +35,7 @@ namespace AEC.ESoft.Web.AdminHandlers.RequestHandlers.Sales.AddItem
                 InvoiceId = request.InvoiceId,
                 ProductId = request.ProductId,
                 Quantity = request.Quantity,
-                PriceAtSale = stock.SellPrice
+                PriceAtSale = (decimal)stock.SellPrice
             };
 
             await _itemService.Add(item);

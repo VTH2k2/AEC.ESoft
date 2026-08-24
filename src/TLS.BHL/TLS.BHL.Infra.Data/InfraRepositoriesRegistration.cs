@@ -38,6 +38,8 @@ namespace AEC.ESoft.Infra.Data
             services.AddScoped<ISalesInvoiceItemRepository, SalesInvoiceItemRepository>();
 
             services.AddScoped<IProductStockRepository, ProductStockRepository>();
+
+            services.AddScoped<IReportRepository, ReportRepository>();
             #endregion
 
 

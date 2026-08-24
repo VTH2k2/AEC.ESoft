@@ -26,7 +26,8 @@ namespace AEC.ESoft.Infra.Business
             services.AddScoped<ISalesInvoiceService, SalesInvoiceService>();
             services.AddScoped<ISalesInvoiceItemService, SalesInvoiceItemService>();
             services.AddScoped<IProductStockService, ProductStockService>();
-
+            services.AddScoped<IReportService, ReportService>();
+            
 
             // Other here
             #endregion

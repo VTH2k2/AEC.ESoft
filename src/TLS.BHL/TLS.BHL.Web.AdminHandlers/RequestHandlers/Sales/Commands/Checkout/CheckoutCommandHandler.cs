@@ -52,7 +52,7 @@ namespace AEC.ESoft.Web.AdminHandlers.RequestHandlers.Sales.Commands.Checkout
                 var product =
                     await _productService.GetProductDefintionsById(item.ProductId);
 
-                if (product.HasDocument)
+                if ((bool)product.HasDocument)
                 {
                     hasMain = true;
                 }

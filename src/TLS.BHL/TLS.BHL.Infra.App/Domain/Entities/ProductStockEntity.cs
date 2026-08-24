@@ -11,16 +11,16 @@ namespace AEC.ESoft.Infra.App.Domain.Entities
     public class ProductStockEntity
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
 
-        public int QuantityMain { get; set; }
+        public int? QuantityMain { get; set; }
 
-        public int QuantitySub { get; set; }
+        public int? QuantitySub { get; set; }
 
-        public decimal ImportPrice { get; set; }
+        public decimal? ImportPrice { get; set; }
 
-        public decimal SellPrice { get; set; }
+        public decimal? SellPrice { get; set; }
 
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }
